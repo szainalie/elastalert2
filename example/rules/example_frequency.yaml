@@ -27,7 +27,7 @@ type: frequency
 # (Required)
 # Index to search, wildcard supported
 index: heartbeat-*
-is_enabled: true
+#is_enabled: true
 
 # (Required, frequency specific)
 # Alert when this many documents matching the query occur within a timeframe
@@ -67,20 +67,20 @@ team_alert_subject_args: ["@timestamp"]
 team_alert_text: Error is {0}
 team_alert_text_args: ["error.message"]
 team_alert_text_type: alert_text_only
-#clickup_alert_text: Error is {0}
-#clickup_alert_text_args: ["error.message"]
-#clickup_alert_users: ["@sadegh","@me"]
-#clickup_alert_text_type: alert_text_only
+clickup_alert_text: Error is {0}
+clickup_alert_text_args: ["error.message"]
+clickup_alert_users: ["@sadegh","@me"]
+clickup_alert_text_type: alert_text_only
 #ClickUp Configuration
-#clickup_task_id: 26pmw9w
-#clickup_token: pk_38463245_I2TWGS1CYKE2EWW61JT850144EOBT18Y
+clickup_task_id: 26pmw9w
+clickup_token: pk_38463245_I2TWGS1CYKE2EWW61JT850144EOBT18Y
 # (Required)
 # The alert is use when a match is found
 alert:
-- "email"
+#- "email"
 - ms_teams
 #- alerters
-#- custom_alert.clickup.ClickupAlerter
+- custom_alert.clickup.ClickupAlerter
 # (required, email specific)
 # a list of email addresses to send alerts to
 email:

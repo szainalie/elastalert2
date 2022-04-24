@@ -154,15 +154,9 @@ class MsTeamsAlerter(Alerter):
         return alert_facts
 
     def alert(self, matches):
-        if 'team_alert_text' in self.rule:
-            body = self.create_custom_alert_body(matches)
-        else:
-            body = self.create_alert_body(matches)
+        body = self.create_alert_body(matches)
         body = self.format_body(body)
-        if 'team_alert_subject' in self.rule:
-            title = self.create_title_team(matches)
-        else:
-            title = self.create_title(matches)
+        title = self.create_title(matches)
         summary = title if self.ms_teams_alert_summary is None else self.ms_teams_alert_summary
         # post to Teams
         headers = {'content-type': 'application/json'}
@@ -219,24 +213,24 @@ class MsTeamsAlerter(Alerter):
         return {'type': 'ms_teams',
                 'ms_teams_webhook_url': self.ms_teams_webhook_url}
     
-    def create_title_team(self, matches):
+    def create_title(self, matches):
         """ Creates custom alert title to be used, e.g. as an e-mail subject or Jira issue summary.
 
         :param matches: A list of dictionaries of relevant information to the alert.
         """
         if 'team_alert_subject' in self.rule:
-            return self.create_custom_title_team(matches)
+            return self.create_custom_title(matches)
 
         return self.create_default_title(matches)
 
     
     
             
-    def create_custom_title_team(self, matches):
+    def create_custom_title(self, matches):
         alert_subject = str(self.rule['team_alert_subject'])
         alert_subject_max_len = int(self.rule.get('team_alert_subject_max_len', 2048))
 
-        if 'team_alert_subject_args' in self.rule:
+        if 'teamalert_subject_args' in self.rule:
             alert_subject_args = self.rule['team_alert_subject_args']
             alert_subject_values = [lookup_es_key(matches[0], arg) for arg in alert_subject_args]
 
@@ -261,7 +255,7 @@ class MsTeamsAlerter(Alerter):
 
         return alert_subject
 
-    def create_custom_alert_body(self, matches):
+    def create_alert_body(self, matches):
         body = self.get_aggregation_summary_text(matches)
         if self.rule.get('team_alert_text_type') != 'aggregation_summary_only':
             for match in matches:

@@ -1,0 +1,7 @@
+smtp_host: smtp.gmail.com
+smtp_ssl: true
+smtp_port: 465
+from_addr: birjand.uni@gmail.com
+user: birjand.uni
+password: sa_ma_64
+
